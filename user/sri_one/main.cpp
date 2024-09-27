@@ -617,11 +617,11 @@ void run_main()
         ++debug_print;
         ++state_est_counter;
 
-        if(state_est_counter % 1000 == 501) {
-            std::cout<<control_fsm->data_->position_[4]<<" "<<control_fsm->data_->position_[5]<<" "<<control_fsm->data_->position_[6]<<std::endl;
-            std::cout<<control_fsm->data_->pos_vel_estimator_->_stateEstimatorData.result.position.transpose()<<std::endl;
+        // if(state_est_counter % 1000 == 501) {
+        //     std::cout<<control_fsm->data_->position_[4]<<" "<<control_fsm->data_->position_[5]<<" "<<control_fsm->data_->position_[6]<<std::endl;
+        //     std::cout<<control_fsm->data_->pos_vel_estimator_->_stateEstimatorData.result.position.transpose()<<std::endl;
 
-        }
+        // }
     }
 }
 
