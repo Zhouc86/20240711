@@ -1,0 +1,1037 @@
+<?xml version="1.0" ?>
+
+<robot name="robot">
+  <material name="black">
+    <color rgba="0.0 0.0 0.0 1.0"/>
+  </material>
+  <material name="blue">
+    <color rgba="0.0 0.0 0.8 1.0"/>
+  </material>
+  <material name="green">
+    <color rgba="0.0 0.8 0.0 1.0"/>
+  </material>
+  <material name="grey">
+    <color rgba="0.2 0.2 0.2 1.0"/>
+  </material>
+  <material name="silver">
+    <color rgba="0.9137254901960784 0.9137254901960784 0.8470588235294118 1.0"/>
+  </material>
+  <material name="orange">
+    <color rgba="1.0 0.4235294117647059 0.0392156862745098 1.0"/>
+  </material>
+  <material name="brown">
+    <color rgba="0.8705882352941177 0.8117647058823529 0.7647058823529411 1.0"/>
+  </material>
+  <material name="red">
+    <color rgba="0.8 0.0 0.0 1.0"/>
+  </material>
+  <material name="white">
+    <color rgba="1.0 1.0 1.0 1.0"/>
+  </material>
+  <!-- ros_control plugin -->
+  <gazebo>
+    <plugin filename="liblegged_hw_sim.so" name="gazebo_ros_control">
+      <robotNamespace>/</robotNamespace>
+      <robotParam>legged_robot_description</robotParam>
+      <robotSimType>legged_gazebo/LeggedHWSim</robotSimType>
+    </plugin>
+  </gazebo>
+  <gazebo>
+    <plugin filename="libgazebo_ros_p3d.so" name="p3d_base_controller">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>1000.0</updateRate>
+      <bodyName>base</bodyName>
+      <topicName>ground_truth/state</topicName>
+      <gaussianNoise>0</gaussianNoise>
+      <frameName>world</frameName>
+      <xyzOffsets>0 0 0</xyzOffsets>
+      <rpyOffsets>0 0 0</rpyOffsets>
+    </plugin>
+  </gazebo>
+  <gazebo reference="base">
+    <maxVel>100.</maxVel>
+    <kp>10000.</kp>
+    <kd>0.</kd>
+  </gazebo>
+  <gazebo reference="stick_link">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/White</material>
+  </gazebo>
+  <gazebo reference="LH_hip">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/DarkGrey</material>
+  </gazebo>
+  <gazebo reference="LH_thigh">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <self_collide>0</self_collide>
+    <material>Gazebo/DarkGrey</material>
+    <kp value="1000000.0"/>
+    <kd value="1.0"/>
+  </gazebo>
+  <gazebo reference="LH_calf">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <self_collide>1</self_collide>
+  </gazebo>
+  <gazebo reference="LH_FOOT">
+    <mu1>0.6</mu1>
+    <mu2>0.6</mu2>
+    <self_collide>1</self_collide>
+    <material>Gazebo/DarkGrey</material>
+    <kp value="1000000.0"/>
+    <kd value="1.0"/>
+  </gazebo>
+  <gazebo reference="RH_hip">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/DarkGrey</material>
+  </gazebo>
+  <gazebo reference="RH_thigh">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <self_collide>0</self_collide>
+    <material>Gazebo/DarkGrey</material>
+    <kp value="1000000.0"/>
+    <kd value="1.0"/>
+  </gazebo>
+  <gazebo reference="RH_calf">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <self_collide>1</self_collide>
+  </gazebo>
+  <gazebo reference="RH_FOOT">
+    <mu1>0.6</mu1>
+    <mu2>0.6</mu2>
+    <self_collide>1</self_collide>
+    <material>Gazebo/DarkGrey</material>
+    <kp value="1000000.0"/>
+    <kd value="1.0"/>
+  </gazebo>
+  
+  <link name="base">
+    <inertial>
+      <origin
+        xyz="0.0 0.0 0.057077"
+        rpy="0 0 0" />
+      <mass
+        value="13.5" />
+      <inertia
+        ixx="0.078323002"
+        ixy="-0.0"
+        ixz="-0.0"
+        iyy="0.342956036"
+        iyz="-0.0"
+        izz="0.387789884" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://sri_description/meshes/base_link.STL" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin
+        xyz="0.0 0.0 0.057077"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.39 0.23 0.121"/>
+        <!-- <mesh filename="package://sri_description/meshes/base_link.STL" /> -->
+      </geometry>
+    </collision>
+  </link>
+  <link name="LF_hip">
+    <inertial>
+      <origin
+        xyz="0.002835 -0.000737 -0.054371"
+        rpy="0 0 0" />
+      <mass
+        value="1.35" />
+      <inertia
+        ixx="0.001914802"
+        ixy="-0.000077087"
+        ixz="0.000079586"
+        iyy="0.0016384"
+        iyz="-0.000020693"
+        izz="0.00109822" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://sri_description/meshes/LF_hip_Link.STL" />
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <!-- <cylinder length="0.048" radius="0.0575"/> -->
+        <mesh filename="package://sri_description/meshes/LF_hip_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="LF_HAA" type="revolute">
+    <origin xyz="0.191 0.05475 0.058" rpy="1.5708 0 -1.5708"/>
+    <parent link="base"/>
+    <child link="LF_hip"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="0" upper="0.85" effort="60" velocity="22"/>
+  </joint>
+  <link name="LF_thigh">
+    <inertial>
+      <origin
+        xyz="-0.005444 0.04067 0.054826"
+        rpy="0 0 0" />
+      <mass
+        value="2.59" />
+      <inertia
+        ixx="0.016219341"
+        ixy="0.001340517"
+        ixz="0.000355698"
+        iyy="0.003096073"
+        iyz="-0.002630815"
+        izz="0.01575218" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <!-- <origin xyz="0 0.1525 0.07875" rpy="0 0 1.6707963267948966"/> -->
+      <geometry>
+        <!-- <cylinder length="0.105" radius="0.0525"/> -->
+        <mesh filename="package://sri_description/meshes/LF_thigh_Link.STL" />
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <!-- <visual>
+      <origin xyz="0 0.1525 0.07875" rpy="0 0 1.6707963267948966"/>
+      <geometry>
+        <box size="0.305 0.032 0.0525"/>
+      </geometry>
+      <material name="green"/>
+    </visual> -->
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <!-- <origin xyz="0 0.1525 0.07875" rpy="0 0 1.6707963267948966"/> -->
+      <geometry>
+        <!-- <cylinder length="0.105" radius="0.0525"/> -->
+        <mesh filename="package://sri_description/meshes/LF_thigh_Link.STL" />
+      </geometry>
+    </collision>
+    <!-- <collision>
+      <origin xyz="0 0.1525 0.07875" rpy="0 0 1.6707963267948966"/>
+      <geometry>
+        <box size="0.305 0.032 0.0525"/>
+      </geometry>
+    </collision> -->
+  </link>
+  <joint name="LF_HFE" type="revolute">
+    <origin xyz="-0.018388 0.0047816 -0.063" rpy="1.5708 0.29525 -1.8252"/>
+    <parent link="LF_hip"/>
+    <child link="LF_thigh"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.39" upper="0.3" effort="60" velocity="22"/>
+  </joint>
+  <link name="LF_calf">
+    <inertial>
+      <origin
+        xyz="0.094262 0.019675 0.000225"
+        rpy="0 0 0"/>
+      <mass
+        value="0.20073"/>
+      <inertia
+        ixx="0.00014376"
+        ixy="-0.00046301"
+        ixz="-0.000000012"
+        iyy="0.002109624"
+        iyz="-0.000000002"
+        izz="0.002227086"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://sri_description/meshes/LF_calf_Link.STL" />
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <!-- <box size="0.23487 0.0316 0.0647"/> -->
+        <mesh filename="package://sri_description/meshes/LF_calf_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="LF_KFE" type="revolute">
+    <origin xyz="0 0.24425 0.087825" rpy="0 0 -1.5708"/>
+    <parent link="LF_thigh"/>
+    <child link="LF_calf"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="0.0" upper="2.1" effort="90" velocity="55"/>
+  </joint>
+  <link name="LF_FOOT">
+    <inertial>
+      <origin
+        xyz="-0.003514 -0.00096 0.002501"
+        rpy="0 0 0" />
+      <mass
+        value="0.1484" />
+      <inertia
+        ixx="0.000000108"
+        ixy="0.000000007"
+        ixz="-0.000000028"
+        iyy="0.000000111"
+        iyz="0.00000001"
+        izz="0.000000073"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.01624"/>
+        <!-- <mesh filename="package://sri_description/meshes/LF_FOOT_Link.STL" /> -->
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.01624"/>
+        <!-- <mesh filename="package://sri_description/meshes/LF_FOOT_Link.STL" /> -->
+      </geometry>
+    </collision>
+  </link>
+  <joint name="LF_foot_fixed" type="fixed">
+    <origin xyz="0.23 0.07123 0.000525" rpy="1.3164 0 0.29525"/>
+    <parent link="LF_calf"/>
+    <child link="LF_FOOT"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <link name="RF_hip">
+    <inertial>
+      <origin
+        xyz="-0.002835 -0.000737 -0.054371"
+        rpy="0 0 0" />
+      <mass
+        value="1.35" />
+      <inertia
+        ixx="0.001914802"
+        ixy="0.000077087"
+        ixz="-0.000079586"
+        iyy="0.0016384"
+        iyz="-0.000020693"
+        izz="0.00109822" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://sri_description/meshes/RF_hip_Link.STL" />
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <!-- <cylinder length="0.048" radius="0.0575"/> -->
+        <mesh filename="package://sri_description/meshes/RF_hip_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="RF_HAA" type="revolute">
+    <origin xyz="0.191 -0.05475 0.058" rpy="1.5708 0 -1.5708"/>
+    <parent link="base"/>
+    <child link="RF_hip"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-0.85" upper="0" effort="60" velocity="22"/>
+  </joint>
+  <link name="RF_thigh">
+    <inertial>
+      <origin
+        xyz="-0.005444 0.0406 -0.054826"
+        rpy="0 0 0"/>
+      <mass
+        value="2.59"/>
+      <inertia
+        ixx="0.016219341"
+        ixy="0.001340517"
+        ixz="-0.000355698"
+        iyy="0.003096073"
+        iyz="0.002630815"
+        izz="0.01575218" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <!-- <cylinder length="0.105" radius="0.0525"/> -->
+        <mesh filename="package://sri_description/meshes/RF_thigh_Link.STL" />
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <!-- <visual>
+      <origin xyz="0 0.1525 -0.07875" rpy="0 0 1.6707963267948966"/>
+      <geometry>
+        <box size="0.305 0.032 0.0525"/>
+      </geometry>
+      <material name="orange"/>
+    </visual> -->
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <!-- <cylinder length="0.105" radius="0.0525"/> -->
+        <mesh filename="package://sri_description/meshes/RF_thigh_Link.STL" />
+      </geometry>
+    </collision>
+    <!-- <collision>
+      <origin xyz="0 0.1525 -0.07875" rpy="0 0 1.6707963267948966"/>
+      <geometry>
+        <box size="0.305 0.032 0.0525"/>
+      </geometry>
+    </collision>     -->
+  </link>
+  <joint name="RF_HFE" type="revolute">
+    <origin xyz="0.018335 0.0049841 -0.063" rpy="1.5708 0.29525 -1.3054"/>
+    <parent link="RF_hip"/>
+    <child link="RF_thigh"/>
+    <axis xyz="0 0 1"/>
+
+    <limit lower="-1.39" upper="0.3" effort="60" velocity="22"/>
+  </joint>
+  <link name="RF_calf">
+    <inertial>
+      <origin
+        xyz="0.094262 0.019675 0.000225"
+        rpy="0 0 0" />
+      <mass
+        value="0.20073" />
+      <inertia
+        ixx="0.00014376"
+        ixy="-0.00046301"
+        ixz="-0.000000012"
+        iyy="0.002109624"
+        iyz="-0.000000002"
+        izz="0.002227086"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://sri_description/meshes/RF_calf_Link.STL" />
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <!-- <box size="0.23487 0.0316 0.0647"/> -->
+        <mesh filename="package://sri_description/meshes/RF_calf_Link.STL" />
+      </geometry>
+    </collision>    
+  </link>
+  <joint name="RF_KFE" type="revolute">
+    <origin xyz="0 0.24425 -0.088575" rpy="0 0 -1.5708"/>
+    <parent link="RF_thigh"/>
+    <child link="RF_calf"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="0" upper="2.1" effort="90" velocity="55"/>
+  </joint>
+  <link name="RF_FOOT">
+    <inertial>
+      <origin
+        xyz="-0.003514 0.00096 0.002501"
+        rpy="0 0 0" />
+      <mass
+        value="0.1484" />
+      <inertia
+        ixx="0.000000108"
+        ixy="-0.000000007"
+        ixz="-0.000000028"
+        iyy="0.000000111"
+        iyz="-0.00000001"
+        izz="0.000000073"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.01624"/>
+        <!-- <mesh filename="package://sri_description/meshes/RF_FOOT_Link.STL" /> -->
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.01624"/>
+        <!-- <mesh filename="package://sri_description/meshes/RF_FOOT_Link.STL" /> -->
+      </geometry>
+    </collision>    
+  </link>
+  <joint name="RF_foot_fixed" type="fixed">
+    <origin xyz="0.23 0.07123 0.000525" rpy="1.8362 0 0.30152"/>
+    <parent link="RF_calf"/>
+    <child link="RF_FOOT"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <link name="LH_hip">
+    <inertial>
+      <origin
+        xyz="0.002835 -0.000737 0.054371"
+        rpy="0 0 0" />
+      <mass
+        value="1.35" />
+      <inertia
+        ixx="0.001914802"
+        ixy="-0.000077087"
+        ixz="-0.000079586"
+        iyy="0.0016384"
+        iyz="0.000020693"
+        izz="0.00109822" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://sri_description/meshes/LH_hip_Link.STL"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <!-- <cylinder length="0.048" radius="0.0575"/> -->
+        <mesh filename="package://sri_description/meshes/LH_hip_Link.STL"/>
+      </geometry>
+    </collision>    
+  </link>
+  <joint name="LH_HAA" type="revolute">
+    <origin xyz="-0.191 0.05475 0.058" rpy="1.5708 0 -1.5708"/>
+    <parent link="base"/>
+    <child link="LH_hip"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="0" upper="0.85" effort="60" velocity="22"/>
+  </joint>
+  <link name="LH_thigh">
+    <inertial>
+      <origin
+        xyz="-0.005444 0.0406 0.054826"
+        rpy="0 0 0"/>
+      <mass
+        value="2.59"/>
+      <inertia
+       ixx="0.016219341"
+        ixy="0.001340517"
+        ixz="0.000355698"
+        iyy="0.003096073"
+        iyz="-0.002630815"
+        izz="0.01575218" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <!-- <cylinder length="0.105" radius="0.0525"/> -->
+        <mesh filename="package://sri_description/meshes/LH_thigh_Link.STL"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <!-- <visual>
+      <origin xyz="0 0.1525 0.07875" rpy="0 0 1.6707963267948966"/>
+      <geometry>
+        <box size="0.305 0.032 0.0525"/>
+      </geometry>
+      <material name="green"/>
+    </visual> -->
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <!-- <cylinder length="0.105" radius="0.0525"/> -->
+        <mesh filename="package://sri_description/meshes/LH_thigh_Link.STL"/>
+      </geometry>
+    </collision>
+    <!-- <collision>
+      <origin xyz="0 0.1525 0.07875" rpy="0 0 1.6707963267948966"/>
+      <geometry>
+        <box size="0.305 0.032 0.0525"/>
+      </geometry>
+    </collision> -->
+  </link>
+  <joint name="LH_HFE" type="revolute">
+    <origin xyz="-0.018388 0.0047816 0.063" rpy="1.5708 0.29525 -1.8252"/>
+    <parent link="LH_hip"/>
+    <child link="LH_thigh"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.39" upper="0.3" effort="60" velocity="22"/>
+  </joint>
+  <link name="LH_calf">
+    <inertial>
+      <origin
+        xyz="0.095909 -0.008605 0.000225"
+        rpy="0 0 0" />
+      <mass
+        value="0.20073" />
+      <inertia
+        ixx="0.000052256"
+        ixy="0.000162469"
+        ixz="-0.000000012"
+        iyy="0.002201131"
+        iyz="0.000000001"
+        izz="0.002227086"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://sri_description/meshes/LH_calf_Link.STL" />
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <!-- <box size="0.23487 0.0316 0.0647"/> -->
+        <mesh filename="package://sri_description/meshes/LH_calf_Link.STL" />
+      </geometry>
+    </collision> 
+  </link>
+  <joint name="LH_KFE" type="revolute">
+    <origin xyz="0 0.24425 0.08695" rpy="0 0 -1.2755"/>
+    <parent link="LH_thigh"/>
+    <child link="LH_calf"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="0" upper="2.1" effort="90" velocity="55"/>
+  </joint>
+  <link name="LH_FOOT">
+    <inertial>
+      <origin
+        xyz="-0.003514 -0.00096 0.002501"
+        rpy="0 0 0" />
+      <mass
+        value="0.1484" />
+      <inertia
+        ixx="0.000000108"
+        ixy="0.000000007"
+        ixz="-0.000000028"
+        iyy="0.000000111"
+        iyz="0.00000001"
+        izz="0.000000073"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.01624"/>
+        <!-- <mesh filename="package://sri_description/meshes/LH_FOOT_Link.STL" /> -->
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.01624"/>
+        <!-- <mesh filename="package://sri_description/meshes/LH_FOOT_Link.STL" /> -->
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="LH_foot_fixed" type="fixed">
+    <origin xyz="0.24078 0.0012216 0.000525" rpy="1.3164 0 0"/>
+    <parent link="LH_calf"/>
+    <child link="LH_FOOT"/>
+    <axis xyz="0 0 0"/>
+  </joint>  
+  
+  <link name="RH_hip">
+    <inertial>
+      <origin
+        xyz="-0.002835 -0.000737 0.054371"
+        rpy="0 0 0" />
+      <mass
+        value="1.35" />
+      <inertia
+        ixx="0.001914802"
+        ixy="0.000077087"
+        ixz="0.000079586"
+        iyy="0.0016384"
+        iyz="0.000020693"
+        izz="0.00109822" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://sri_description/meshes/RH_hip_Link.STL"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <!-- <cylinder length="0.048" radius="0.0575"/> -->
+        <mesh filename="package://sri_description/meshes/RH_hip_Link.STL"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="RH_HAA" type="revolute">
+    <origin xyz="-0.191 -0.05475 0.058" rpy="1.5708 0 -1.5708"/>
+    <parent link="base"/>
+    <child link="RH_hip"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-0.85" upper="0" effort="60" velocity="22"/>
+  </joint>
+
+  <link name="RH_thigh">
+    <inertial>
+      <origin
+        xyz="-0.005444 0.0406 -0.054826"
+        rpy="0 0 0"/>
+      <mass
+        value="2.59"/>
+      <inertia
+        ixx="0.016219341"
+        ixy="0.001340517"
+        ixz="-0.000355698"
+        iyy="0.003096073"
+        iyz="0.002630815"
+        izz="0.01575218" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <!-- <cylinder length="0.105" radius="0.0525"/> -->
+        <mesh filename="package://sri_description/meshes/RH_thigh_Link.STL"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <!-- <visual>
+      <origin xyz="0 0.1525 -0.07875" rpy="0 0 1.6707963267948966"/>
+      <geometry>
+        <box size="0.305 0.032 0.0525"/>
+      </geometry>
+      <material name="green"/>
+    </visual> -->
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <!-- <cylinder length="0.105" radius="0.0525"/> -->
+        <mesh filename="package://sri_description/meshes/RH_thigh_Link.STL"/>
+      </geometry>
+    </collision>
+    <!-- <collision>
+      <origin xyz="0 0.1525 -0.07875" rpy="0 0 1.6707963267948966"/>
+      <geometry>
+        <box size="0.305 0.032 0.0525"/>
+      </geometry>
+    </collision> -->
+  </link>
+
+  <joint name="RH_HFE" type="revolute">
+    <origin xyz="0.018335 0.0049841 0.063" rpy="1.5708 0.30152 -1.3054"/>
+    <parent link="RH_hip"/>
+    <child link="RH_thigh"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.39" upper="0.3" effort="60" velocity="22"/>
+  </joint>
+
+  <link name="RH_calf">
+    <inertial>
+      <origin
+        xyz="0.094262 0.019675 0.000225"
+        rpy="0 0 0" />
+      <mass
+        value="0.20073" />
+      <inertia
+        ixx="0.000143764"
+        ixy="-0.00046301"
+        ixz="-0.000000012"
+        iyy="0.002109624"
+        iyz="-0.000000002"
+        izz="0.002227086"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://sri_description/meshes/RH_calf_Link.STL"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <!-- <box size="0.23487 0.0316 0.0647"/> -->
+        <mesh filename="package://sri_description/meshes/RH_calf_Link.STL"/>
+      </geometry>
+    </collision>
+    
+  </link>
+  
+  <joint name="RH_KFE" type="revolute">
+    <origin xyz="0 0.24425 -0.088575" rpy="0 0 -1.5708"/>
+    <parent link="RH_thigh"/>
+    <child link="RH_calf"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="0" upper="2.1" effort="90" velocity="55"/>
+  </joint>
+
+  <link name="RH_FOOT">
+    <inertial>
+      <origin
+        xyz="-0.003514 -0.00096 0.002501"
+        rpy="0 0 0" />
+      <mass
+        value="0.1484" />
+      <inertia
+        ixx="0.000000108"
+        ixy="-0.000000007"
+        ixz="-0.000000028"
+        iyy="0.000000111"
+        iyz="-0.00000001"
+        izz="0.000000073"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.01624"/>
+        <!-- <mesh filename="package://sri_description/meshes/RH_FOOT_Link.STL"/> -->
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.01624"/>
+        <!-- <mesh filename="package://sri_description/meshes/RH_FOOT_Link.STL"/> -->
+      </geometry>
+    </collision>    
+  </link>
+  
+  <joint name="RH_foot_fixed" type="fixed">
+    <origin xyz="0.23 0.07123 -0.00007" rpy="1.8362 0 0.30152"/>
+    <parent link="RH_calf"/>
+    <child link="RH_FOOT"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+  <!-- Imu link -->
+  <link name="base_imu">
+    <inertial>
+      <origin
+        xyz="0 0 0.018364"
+        rpy="0 0 0"/>
+      <mass
+        value="0.015" />
+      <inertia
+        ixx="0.000001407"
+        ixy="0"
+        ixz="0"
+        iyy="0.000001714"
+        iyz="0"
+        izz="0.000002388"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.015 0.015 0.004"/>
+      </geometry>
+    </visual>
+    <material name="orange">
+      <color rgba="255 108 10 255"/>
+    </material>
+  </link>
+
+  <!-- Imu is fixed to the base link -->
+  <joint name="base_imu_joint" type="fixed">
+    <origin rpy="0. 0. 0." xyz="0. 0. 0.0105"/>
+    <parent link="base"/>
+    <child link="base_imu"/>
+  </joint>
+
+  <gazebo reference="base_imu">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+  <gazebo reference="base_imu_joint">
+    <disableFixedJointLumping>true</disableFixedJointLumping>
+  </gazebo>
+  
+  <gazebo reference="RF_foot_fixed">
+    <disableFixedJointLumping>true</disableFixedJointLumping>
+  </gazebo>
+  <gazebo reference="RF_hip">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/DarkGrey</material>
+  </gazebo>
+  <gazebo reference="RF_thigh">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <self_collide>0</self_collide>
+    <material>Gazebo/DarkGrey</material>
+    <kp value="1000000.0"/>
+    <kd value="1.0"/>
+  </gazebo>
+  <gazebo reference="RF_calf">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <self_collide>1</self_collide>
+  </gazebo>
+  <gazebo reference="RF_FOOT">
+    <mu1>0.6</mu1>
+    <mu2>0.6</mu2>
+    <self_collide>1</self_collide>
+    <material>Gazebo/DarkGrey</material>
+    <kp value="1000000.0"/>
+    <kd value="100.0"/>
+  </gazebo>
+  <transmission name="RF_HAA_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RF_HAA">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="RF_HAA_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="RF_HFE_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RF_HFE">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="RF_HFE_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="RF_KFE_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RF_KFE">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="RF_KFE_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <gazebo reference="LF_foot_fixed">
+    <disableFixedJointLumping>true</disableFixedJointLumping>
+  </gazebo>
+  <gazebo reference="LF_hip">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/DarkGrey</material>
+  </gazebo>
+  <gazebo reference="LF_thigh">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <self_collide>0</self_collide>
+    <material>Gazebo/DarkGrey</material>
+    <kp value="1000000.0"/>
+    <kd value="1.0"/>
+  </gazebo>
+  <gazebo reference="LF_calf">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <self_collide>1</self_collide>
+  </gazebo>
+  <gazebo reference="LF_FOOT">
+    <mu1>0.6</mu1>
+    <mu2>0.6</mu2>
+    <self_collide>1</self_collide>
+    <material>Gazebo/DarkGrey</material>
+    <kp value="1000000.0"/>
+    <kd value="100.0"/>
+  </gazebo>
+  <transmission name="LF_HAA_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="LF_HAA">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="LF_HAA_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="LF_HFE_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="LF_HFE">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="LF_HFE_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="LF_KFE_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="LF_KFE">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="LF_KFE_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <gazebo reference="RH_foot_fixed">
+    <disableFixedJointLumping>true</disableFixedJointLumping>
+  </gazebo>
+  <transmission name="RH_HAA_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RH_HAA">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="RH_HAA_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="RH_HFE_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RH_HFE">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="RH_HFE_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="RH_KFE_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RH_KFE">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="RH_KFE_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  
+  
+  <gazebo reference="LH_foot_fixed">
+    <disableFixedJointLumping>true</disableFixedJointLumping>
+  </gazebo>
+  
+  <transmission name="LH_HAA_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="LH_HAA">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="LH_HAA_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="LH_HFE_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="LH_HFE">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="LH_HFE_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="LH_KFE_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="LH_KFE">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="LH_KFE_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  
+</robot>

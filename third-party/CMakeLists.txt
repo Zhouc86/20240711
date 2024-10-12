@@ -1,0 +1,8 @@
+add_subdirectory(ParamHandler)
+add_subdirectory(inih)
+add_subdirectory(inekf)
+add_subdirectory(message-logger)
+add_subdirectory(SOEM-1.4.0)
+add_subdirectory(yaml-cpp)
+add_subdirectory(qpOASES)
+add_subdirectory(Goldfarb_Optimizer)
